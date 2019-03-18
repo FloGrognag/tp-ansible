@@ -1,0 +1,15 @@
+---
+# tasks file for tomcat
+- name: install tomcat
+  package:
+    name: tomcat8
+
+- name: start tomcat
+  service:
+    name: tomcat8
+    enabled: true
+    state: started
+    
+- name: test
+  include_tasks: tests.yml
+  tags: tests
