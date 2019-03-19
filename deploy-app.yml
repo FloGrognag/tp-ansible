@@ -11,6 +11,7 @@
 - hosts: app-servers
   gather_facts: yes
   become: true
+  serial: 50%
   roles:
     - role: tomcat-app
       tags: [ app, tomcat, deploy ]

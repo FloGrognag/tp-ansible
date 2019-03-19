@@ -2,7 +2,7 @@
 # tasks file for tomcat-app
 - include_tasks: check-deploy-needed.yml
 - include_tasks: deploy.yml
-  when: tomcat_need_deploy
+  when: tomcat_need_deploy2
   
 - include_tasks: configure.yml
 
@@ -15,3 +15,5 @@
     state: started
   
 - include_tasks: tests.yml
+
+- include_tasks: enable-haproxy.yml

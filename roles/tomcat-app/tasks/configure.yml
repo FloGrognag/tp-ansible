@@ -3,3 +3,7 @@
     dest: /usr/share/tomcat8/lib/app.properties
     src: app.properties.j2
   notify: restart tomcat
+  register: conf_result
+  
+- include_tasks: disable-haproxy.yml
+  when: conf_result.changed
