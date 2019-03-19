@@ -1,0 +1,16 @@
+---
+- hosts: all
+  tasks:
+  - name: check version
+    fail:
+      msg: "Calice! la variable tomcat_app_version n'est pas déclarée"
+    when: tomcat_app_version is not defined
+    run_once: yes
+    tags: [ always ]
+
+- hosts: app-servers
+  gather_facts: yes
+  become: true
+  roles:
+    - role: tomcat-app
+      tags: [ app, tomcat, deploy ]

@@ -1,0 +1,16 @@
+---
+- name: check running version
+  uri:
+    url: http://localhost:8080/{{ tomcat_app_name }}/version
+    return_content: yes
+    timeout: 30
+  register: tomcat_app_version_check_result
+
+- name: display installed version
+  debug: 
+    msg: "installed version is: {{ tomcat_app_version_check_result.json.version }}"
+  
+- name: verify running version match version to deploy
+  fail:
+    msg: "Running version does not match deployed version"
+  when: tomcat_app_version_check_result.json.version != tomcat_app_version

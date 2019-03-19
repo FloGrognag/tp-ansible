@@ -1,0 +1,17 @@
+---
+# tasks file for tomcat-app
+- include_tasks: check-deploy-needed.yml
+- include_tasks: deploy.yml
+  when: tomcat_need_deploy
+  
+- include_tasks: configure.yml
+
+- name: make sure tomcat is started
+  meta: flush_handlers
+
+- name: tomcat started
+  service:
+    name: tomcat8
+    state: started
+  
+- include_tasks: tests.yml

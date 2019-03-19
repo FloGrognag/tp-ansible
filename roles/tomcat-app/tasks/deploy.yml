@@ -1,0 +1,19 @@
+---
+# tasks file for tomcat-app
+- name: stop tomcat
+  service:
+    name: tomcat8
+    state: stopped
+    
+- name: delete files
+  file:
+    name: /var/lib/tomcat8/webapps/{{ tomcat_app_name }}
+    state: absent
+  notify: restart tomcat
+  
+- name: get application war
+  get_url:
+    url: "{{ tomcat_app_repository }}/{{ tomcat_app_name }}-{{ tomcat_app_version }}.war"
+    dest: /var/lib/tomcat8/webapps/{{ tomcat_app_name }}.war
+    force: yes
+  notify: restart tomcat
